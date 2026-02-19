@@ -25,7 +25,7 @@ async function handleLogin() {
     // 🔥 Full sync pour récupérer données précédentes
     await syncService.fullSync()
 
-    await router.push('/session')
+    await router.push('/')
 
   } catch (err) {
 
