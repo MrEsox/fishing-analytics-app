@@ -178,7 +178,6 @@ watch(
 <template>
   <div class="min-h-screen bg-black flex justify-center">
     <div class="w-full max-w-[430px] min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black text-white px-6 pt-8 pb-10">
-
       <!-- HEADER -->
       <div class="flex justify-between items-center mb-10">
         <div>
@@ -196,8 +195,8 @@ watch(
           </div>
 
           <button
-            @click="logout"
             class="text-[10px] bg-red-500/20 text-red-400 px-3 py-1 rounded-full hover:bg-red-500/30 transition"
+            @click="logout"
           >
             SIGN OUT
           </button>
@@ -206,63 +205,79 @@ watch(
 
       <!-- CONDITIONS -->
       <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 mb-8 shadow-2xl">
-
         <div class="text-[11px] uppercase tracking-widest text-zinc-500 mb-4">
           Conditions
         </div>
 
         <!-- DAILY -->
-        <div v-if="!activeSession && dailyWeather" class="grid grid-cols-2 gap-y-6">
-
+        <div
+          v-if="!activeSession && dailyWeather"
+          class="grid grid-cols-2 gap-y-6"
+        >
           <div>
-            <div class="text-xs text-zinc-500">Temp Day</div>
+            <div class="text-xs text-zinc-500">
+              Temp Day
+            </div>
             <div class="text-2xl font-semibold">
               {{ dailyWeather.temp_day_min }}° / {{ dailyWeather.temp_day_max }}°
             </div>
           </div>
 
           <div>
-            <div class="text-xs text-zinc-500">Pressure Day</div>
+            <div class="text-xs text-zinc-500">
+              Pressure Day
+            </div>
             <div class="text-2xl font-semibold">
               {{ dailyWeather.pressure_day_min }} / {{ dailyWeather.pressure_day_max }}
             </div>
           </div>
 
           <div>
-            <div class="text-xs text-zinc-500">Wind Max</div>
+            <div class="text-xs text-zinc-500">
+              Wind Max
+            </div>
             <div class="text-2xl font-semibold">
               {{ dailyWeather.wind_day_max }} km/h
             </div>
           </div>
-
         </div>
 
         <!-- SESSION SNAPSHOT -->
-        <div v-else-if="activeSession" class="grid grid-cols-2 gap-y-6">
-
+        <div
+          v-else-if="activeSession"
+          class="grid grid-cols-2 gap-y-6"
+        >
           <div>
-            <div class="text-xs text-zinc-500">Wind Dir</div>
+            <div class="text-xs text-zinc-500">
+              Wind Dir
+            </div>
             <div class="text-2xl font-semibold">
               {{ activeSession.wind_direction_current }}°
             </div>
           </div>
 
           <div>
-            <div class="text-xs text-zinc-500">Wind Speed</div>
+            <div class="text-xs text-zinc-500">
+              Wind Speed
+            </div>
             <div class="text-2xl font-semibold">
               {{ activeSession.wind_speed_current }} km/h
             </div>
           </div>
 
           <div>
-            <div class="text-xs text-zinc-500">Temp</div>
+            <div class="text-xs text-zinc-500">
+              Temp
+            </div>
             <div class="text-2xl font-semibold">
               {{ activeSession.temp_current }}°C
             </div>
           </div>
 
           <div>
-            <div class="text-xs text-zinc-500">Pressure</div>
+            <div class="text-xs text-zinc-500">
+              Pressure
+            </div>
             <div class="text-2xl font-semibold">
               {{ activeSession.pressure_current }} hPa
             </div>
@@ -275,40 +290,37 @@ watch(
               {{ activeSession.pressure_trend_3h }} (3h)
             </div>
           </div>
-
         </div>
-
       </div>
 
       <!-- ACTIONS -->
       <div class="flex flex-col gap-6">
-
         <button
           v-if="!activeSession"
-          @click="startSession"
           class="w-full bg-gradient-to-r from-green-500 to-emerald-600 py-6 rounded-3xl text-xl font-bold shadow-xl active:scale-95 transition"
+          @click="startSession"
         >
           START SESSION
         </button>
 
-        <div v-else class="flex flex-col gap-5">
-
+        <div
+          v-else
+          class="flex flex-col gap-5"
+        >
           <button
-            @click="addCatch"
             class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 py-8 rounded-3xl text-3xl font-bold shadow-2xl active:scale-95 transition"
+            @click="addCatch"
           >
             + CATCH
           </button>
 
           <button
-            @click="endSession"
             class="w-full bg-zinc-800 border border-zinc-700 py-3 rounded-2xl text-sm text-zinc-300 hover:bg-zinc-700 transition"
+            @click="endSession"
           >
             End Session
           </button>
-
         </div>
-
       </div>
 
       <!-- STATS -->
@@ -334,7 +346,6 @@ watch(
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>

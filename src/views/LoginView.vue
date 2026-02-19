@@ -42,9 +42,8 @@ async function handleLogin() {
 
 <template>
   <div class="min-h-screen bg-black flex justify-center items-center overflow-hidden relative">
-
     <!-- Animated background glow -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.15),transparent_40%),radial-gradient(circle_at_70%_70%,rgba(16,185,129,0.15),transparent_40%)] animate-pulse"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.15),transparent_40%),radial-gradient(circle_at_70%_70%,rgba(16,185,129,0.15),transparent_40%)] animate-pulse" />
 
     <div
       :class="[
@@ -52,9 +51,7 @@ async function handleLogin() {
         shake ? 'animate-[shake_0.4s]' : ''
       ]"
     >
-
       <div class="bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-3xl p-8 shadow-2xl">
-
         <!-- HEADER -->
         <div class="mb-10 text-center">
           <div class="text-xs tracking-widest text-zinc-500 mb-2">
@@ -73,8 +70,10 @@ async function handleLogin() {
           {{ error }}
         </div>
 
-        <form @submit.prevent="handleLogin" class="flex flex-col gap-6">
-
+        <form
+          class="flex flex-col gap-6"
+          @submit.prevent="handleLogin"
+        >
           <!-- EMAIL -->
           <div class="relative">
             <input
@@ -83,7 +82,7 @@ async function handleLogin() {
               required
               placeholder=" "
               class="peer w-full bg-black border border-zinc-700 rounded-xl px-4 pt-6 pb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            />
+            >
             <label class="absolute left-4 top-2 text-xs text-zinc-500 peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-zinc-600 transition-all">
               Email
             </label>
@@ -97,7 +96,7 @@ async function handleLogin() {
               required
               placeholder=" "
               class="peer w-full bg-black border border-zinc-700 rounded-xl px-4 pt-6 pb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            />
+            >
             <label class="absolute left-4 top-2 text-xs text-zinc-500 peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-zinc-600 transition-all">
               Password
             </label>
@@ -133,24 +132,21 @@ async function handleLogin() {
               />
             </svg>
           </button>
-<div class="mt-6">
-  <button
-    type="button"
-    @click="$router.push('/signup')"
-    class="w-full border border-zinc-700 py-3 rounded-2xl text-sm text-zinc-400 hover:bg-zinc-800 transition"
-  >
-    Create Account
-  </button>
-</div>
-
+          <div class="mt-6">
+            <button
+              type="button"
+              class="w-full border border-zinc-700 py-3 rounded-2xl text-sm text-zinc-400 hover:bg-zinc-800 transition"
+              @click="$router.push('/signup')"
+            >
+              Create Account
+            </button>
+          </div>
         </form>
-
       </div>
 
       <div class="mt-6 text-center text-xs text-zinc-600">
         Secure Supabase Authentication
       </div>
-
     </div>
   </div>
 </template>
