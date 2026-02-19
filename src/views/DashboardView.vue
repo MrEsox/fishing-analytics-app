@@ -21,11 +21,9 @@ function normalizeAngle(value) {
 
 function toCardinalDirection(deg) {
   if (!Number.isFinite(deg)) return '--'
-
   const directions = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO']
   const normalized = normalizeAngle(deg)
   const index = Math.round(normalized / 45) % 8
-
   return directions[index]
 }
 
@@ -36,9 +34,7 @@ const catchesPerSession = computed(() => {
 
 const recommendedFishingOrientation = computed(() => {
   if (!Number.isFinite(windDirection.value)) return null
-
   const orientation = normalizeAngle(windDirection.value + 180)
-
   return {
     angle: Math.round(orientation),
     cardinal: toCardinalDirection(orientation)
@@ -62,6 +58,7 @@ async function loadDashboardData() {
   if (!auth.user?.id) return
 
   const sessions = await sessionRepository.getAllByUser(auth.user.id)
+
   const sessionsThisYear = sessions.filter((session) => {
     if (!session?.start_time) return false
     return new Date(session.start_time).getFullYear() === currentYear
@@ -90,14 +87,16 @@ async function loadDashboardData() {
   }
 }
 
+async function goToSession() {
+  await router.push('/session')
+}
+
 async function logout() {
   await auth.signOut()
   await router.replace('/login')
 }
 
-onMounted(async () => {
-  await loadDashboardData()
-})
+onMounted(loadDashboardData)
 
 watch(
   () => auth.user?.id,
@@ -111,6 +110,7 @@ watch(
 <template>
   <div class="min-h-screen bg-black flex justify-center">
     <div class="w-full max-w-[430px] min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black text-white px-6 pt-8 pb-10">
+
       <div class="flex justify-between items-center mb-10">
         <div>
           <div class="text-[10px] tracking-widest text-zinc-500">
@@ -136,39 +136,23 @@ watch(
 
         <div class="grid grid-cols-2 gap-y-6">
           <div>
-            <div class="text-xs text-zinc-500">
-              Sessions
-            </div>
-            <div class="text-2xl font-semibold">
-              {{ yearSessionsCount }}
-            </div>
+            <div class="text-xs text-zinc-500">Sessions</div>
+            <div class="text-2xl font-semibold">{{ yearSessionsCount }}</div>
           </div>
 
           <div>
-            <div class="text-xs text-zinc-500">
-              Total Catches
-            </div>
-            <div class="text-2xl font-semibold">
-              {{ totalCatches }}
-            </div>
+            <div class="text-xs text-zinc-500">Total Catches</div>
+            <div class="text-2xl font-semibold">{{ totalCatches }}</div>
           </div>
 
           <div>
-            <div class="text-xs text-zinc-500">
-              Catches / Session
-            </div>
-            <div class="text-2xl font-semibold">
-              {{ catchesPerSession }}
-            </div>
+            <div class="text-xs text-zinc-500">Catches / Session</div>
+            <div class="text-2xl font-semibold">{{ catchesPerSession }}</div>
           </div>
 
           <div>
-            <div class="text-xs text-zinc-500">
-              Wind Direction
-            </div>
-            <div class="text-2xl font-semibold">
-              {{ windDirectionLabel }}
-            </div>
+            <div class="text-xs text-zinc-500">Wind Direction</div>
+            <div class="text-2xl font-semibold">{{ windDirectionLabel }}</div>
           </div>
         </div>
       </div>
@@ -189,6 +173,14 @@ watch(
           {{ orientationAdvice }}
         </p>
       </div>
+
+      <button
+        class="w-full mt-6 bg-gradient-to-r from-green-500 to-emerald-600 py-5 rounded-2xl text-lg font-bold shadow-xl active:scale-95 transition"
+        @click="goToSession"
+      >
+        COMMENCER UNE PARTIE DE PÊCHE
+      </button>
+
     </div>
   </div>
 </template>
