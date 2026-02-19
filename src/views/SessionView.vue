@@ -209,7 +209,7 @@ watch(
       <!-- CONDITIONS -->
       <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 mb-8 shadow-2xl">
         <div class="text-[11px] uppercase tracking-widest text-zinc-500 mb-4">
-          Conditions
+          Conditions (next 24h )
         </div>
 
         <!-- DAILY -->
