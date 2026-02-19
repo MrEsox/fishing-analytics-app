@@ -14,6 +14,10 @@ function isNetworkError(error) {
   return !error?.code
 }
 
+function isInvalidDexieKeyError(error) {
+  return error?.name === 'DataError' || error?.message?.includes('not a valid key')
+}
+
 function calculateBackoff(retries) {
   return BASE_DELAY * Math.pow(2, retries)
 }
@@ -69,9 +73,15 @@ async function processAction(action) {
       const catchItem = await db.catches.get(localId)
       if (!catchItem) throw new Error('Catch not found')
 
-      const session = await db.sessions.get(catchItem.session_id)
-      if (!session?.remote_id)
+      const sessionLocalId = Number(catchItem.session_id)
+      if (!Number.isFinite(sessionLocalId)) {
+        throw new Error('Invalid catch session_id')
+      }
+
+      const session = await db.sessions.get(sessionLocalId)
+      if (!session?.remote_id) {
         throw new Error('Session must be synced first')
+      }
 
       const payload = {
         client_uuid: catchItem.client_uuid,
@@ -129,6 +139,11 @@ async function pushQueue() {
       })
 
     } catch (error) {
+
+      if (isInvalidDexieKeyError(error) || error?.message === 'Invalid catch session_id') {
+        await db.sync_queue.update(action.id, { status: 'failed' })
+        continue
+      }
 
       const newRetries = action.retries + 1
       const delay = calculateBackoff(newRetries)
