@@ -24,7 +24,10 @@ let timer = null
 async function loadDailyWeather() {
   try {
     const weather = await getWeatherData(33.5731, -7.5898)
-    dailyWeather.value = weather.day
+    dailyWeather.value = {
+      ...weather.day,
+      wind_direction_current: weather.snapshot?.wind_direction_current ?? null
+    }
   } catch {
     dailyWeather.value = null
   }
@@ -238,6 +241,15 @@ watch(
             </div>
             <div class="text-2xl font-semibold">
               {{ dailyWeather.wind_day_max }} km/h
+            </div>
+          </div>
+
+          <div>
+            <div class="text-xs text-zinc-500">
+              Wind Direction
+            </div>
+            <div class="text-2xl font-semibold">
+              {{ dailyWeather.wind_direction_current ?? '--' }}°
             </div>
           </div>
         </div>

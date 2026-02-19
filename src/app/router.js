@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore.js'
 
 import DashboardView from '@/views/DashboardView.vue'
@@ -16,7 +16,7 @@ const routes = [
 ]
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes
 })
 
@@ -35,7 +35,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if ((to.path === '/login' || to.path === '/signup') && auth.user) {
-    return next('/session')
+    return next('/')
   }
 
   next()
