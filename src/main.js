@@ -34,7 +34,3 @@ window.addEventListener('online', async () => {
     await syncService.fullSync()
   }
 })
-
-window.addEventListener('offline', () => {
-  console.log('Offline mode')
-})
