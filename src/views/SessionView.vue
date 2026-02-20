@@ -314,7 +314,12 @@ watch(
         >
           START SESSION
         </button>
-
+                  <button
+                            v-if="!activeSession"
+                            class="w-full bg-gradient-to-r from-blue-500 to-emerald-600 py-6 rounded-3xl text-xl font-bold shadow-xl active:scale-95 transition"
+                          >
+          depth
+        </button>
         <div
           v-else
           class="flex flex-col gap-5"
