@@ -35,7 +35,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if ((to.path === '/login' || to.path === '/signup') && auth.user) {
-    return next('/session')
+    return next('/')
   }
 
   next()
